@@ -3,20 +3,20 @@ package tree_question;
 import java.util.*;
 
 public class Solution {
-	
-	List<Integer> list = new ArrayList<Integer>();
-	
-	//104. Maximum Depth of Binary Tree
-	public int maxDepth(TreeNode root) {
+
+    List<Integer> list = new ArrayList<Integer>();
+
+    //104. Maximum Depth of Binary Tree
+    public int maxDepth(TreeNode root) {
         if(root==null)  return 0;
         int left = maxDepth(root.left);
         int right = maxDepth(root.right);
         int h = Math.max(left,right)+1;
         return h;
     }
-	
-	//543. Diameter of Binary Tree
-	int d;
+
+    //543. Diameter of Binary Tree
+    int d;
     public int diameterOfBinaryTree(TreeNode root) {
         d =1;
         maxDepth1(root);
@@ -40,7 +40,7 @@ public class Solution {
         if(left == null || right == null)  return false;
         return (left.val == right.val) && symmetric(left.right, right.left) && symmetric(left.left, right.right);
     }
-	//144. Binary Tree Preorder Traversal
+    //144. Binary Tree Preorder Traversal
     public List<Integer> preorderTraversal(TreeNode root) {
         preorder(root);
         return list;
@@ -67,7 +67,7 @@ public class Solution {
             list.add(root.val);
         }
     }
-     
+
      //94. Binary Tree Inorder Traversal
      public List<Integer> inorderTraversal(TreeNode root) {
          inorder(root);
@@ -83,15 +83,14 @@ public class Solution {
      }
      //98. Validate Binary Search Tree
      public boolean isValidBST(TreeNode root) {
-		 inorder1(root);
-         int array[] = list.stream().mapToInt(Integer::intValue).toArray();
-		 for (int i = 0; i < array.length-1; i++) {
+		inorder1(root);
+		int array[] = list.stream().mapToInt(Integer::intValue).toArray();
+		for (int i = 0; i < array.length-1; i++) {
 			if(array[i]>=array[i+1])
-				return false;
+			return false;
 		}
-        return true;
-	        
-	 }
+	return true;
+	}
     public void inorder1(TreeNode root) {
         if(root == null)    return;
         if(root!=null){
@@ -169,9 +168,9 @@ public class Solution {
  			if(t.left!=null)
  				tempQueue.add(t.left);
  			if(t.right!=null)
- 				tempQueue.add(t.right);			
+ 				tempQueue.add(t.right);
  		}
- 		if(!level.isEmpty())	
+ 		if(!level.isEmpty())
  			list.add(new ArrayList<Integer>(level));
  		level.clear();
  		return tempQueue;
