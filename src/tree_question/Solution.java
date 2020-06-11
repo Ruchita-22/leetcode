@@ -175,5 +175,23 @@ public class Solution {
  		level.clear();
  		return tempQueue;
  	}
+     //110. Balanced Binary Tree
+     public boolean isBalanced(TreeNode root) {
+         if(root==null || root.left == null && root.right==null)
+             return true;
+         int left = height(root.left);
+         int right = height(root.right);
+        // int diff = (left - right)<0 ? -(left - right) : (left - right);
+         if(Math.abs(left - right)<2)
+             return true;
+         else 
+             return false;
+     }
+	public int height(TreeNode root) {
+		if(root == null)	return 0;
+		int left = height(root.left);
+		int right = height(root.right);
+		return Math.max(left, right)+1;
+	}
  
 }
