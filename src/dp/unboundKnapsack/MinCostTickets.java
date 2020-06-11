@@ -1,4 +1,4 @@
-package unboundKnapsack;
+package dp.unboundKnapsack;
 
 public class MinCostTickets {
 

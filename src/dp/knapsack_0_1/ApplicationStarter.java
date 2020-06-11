@@ -1,4 +1,4 @@
-package knapsack_0_1;
+package dp.knapsack_0_1;
 
 import java.util.Arrays;
 import java.util.Scanner;
