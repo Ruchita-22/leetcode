@@ -1,4 +1,4 @@
-package knapsack_0_1;
+package dp.knapsack_0_1;
 
 public class TargetSum {
 	static int t[][] = new int[21][1001];

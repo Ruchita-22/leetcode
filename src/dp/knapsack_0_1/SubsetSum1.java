@@ -1,4 +1,4 @@
-package knapsack_0_1;
+package dp.knapsack_0_1;
 
 public class SubsetSum1 {
 	static int dp[][] = new int[100][1000];

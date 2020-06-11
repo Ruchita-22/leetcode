@@ -1,4 +1,4 @@
-package longestCommonSubsequence;
+package dp.knapsack_0_1;
 
 import java.util.Arrays;
 

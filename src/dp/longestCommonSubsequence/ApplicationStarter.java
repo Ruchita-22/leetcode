@@ -1,4 +1,4 @@
-package longestCommonSubsequence;
+package dp.longestCommonSubsequence;
 
 public class ApplicationStarter {
 

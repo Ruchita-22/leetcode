@@ -1,4 +1,4 @@
-package longestCommonSubsequence;
+package dp.longestCommonSubsequence;
 
 public class MakePalindromeWithMinimumInsertion {
 	static int t[][] = new int[1001][1001];
