@@ -32,6 +32,7 @@ public class Sum {
 		for (int i = 0; i < arr.length; i++) {
 			current_sum += arr[i];
 			int key = current_sum % k;
+			//not completed
 		}
 	}
 	
@@ -252,8 +253,73 @@ public class Sum {
 				map.put(current_sum, i);
 		}
 		return current_sum;
-		
 	}
 	
+	public static int subarraysDivByK(int[] arr, int x) {
+		//A = [4,5,0,-2,-3,1], K = 5
+		Map<Integer,Integer> map =  new HashMap<>();
+		map.put(0, 1);
+		int current_sum = 0;
+		int count = 0;
+		
+		
+		for (int i = 0; i < arr.length; i++) {
+			current_sum += arr[i];
+			int key = current_sum % x;
+			if(key < 0)
+				key += x;
+			if(map.containsKey(key)) {
+				count += map.get(key);                //map.put(key, map.get(key)+1);
+			}
+			map.put(key, map.getOrDefault(key, 0)+1);
+			
+		}
+		return count;
+        
+    }
+	//Longest subarray in which all elements are greater than K
+		static int longestSubarray(int a[], int n, int x) 
+		{ 	//Input: a[] = {3, 4, 5, 6, 7, 2, 10, 11}, K = 5
+			//Output: 2
+		    int count = 0; 
+		    int length = 0; 
+		    for (int i = 0; i < n; i++) {
+		        if (a[i] > x) { 
+		            count += 1; 
+		        } 
+		        else { 
+		            length = Math.max(length, count); 
+		            count = 0; 
+		        } 
+		    } 
+		    if (count>0) 
+		        length = Math.max(length, count); 
+		    return length; 
+		} 
+		//Given an unsorted array of nonnegative integers, find a continuous subarray which adds to a given number.
+		int subArraySum(int arr[], int n, int sum) { 
+			//Input: arr[] = {1, 4, 20, 3, 10, 5}, sum = 33
+			//Ouptut: Sum found between indexes 2 and 4
+			
+	        int curr_sum = arr[0], start = 0, i; 
+	        for (i = 1; i <= n; i++) { 
+	            while (curr_sum > sum && start < i - 1) { 
+	                curr_sum = curr_sum - arr[start]; 
+	                start++; 
+	            } 
+	            if (curr_sum == sum) { 
+	                int p = i - 1; 
+	                System.out.println( 
+	                    "Sum found between indexes " + start 
+	                    + " and " + p); 
+	                return 1; 
+	            } 
+	            if (i < n) 
+	                curr_sum = curr_sum + arr[i]; 
+	        } 
+	  
+	        System.out.println("No subarray found"); 
+	        return 0; 
+	    } 
 
 }

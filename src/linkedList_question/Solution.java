@@ -279,10 +279,7 @@ public class Solution {
     }
     //83. Remove Duplicates from Sorted List
     public ListNode deleteDuplicates(ListNode head) {
-        if(head == null)
-            return null;
-        if(head.next == null)
-            return head;
+    	if(head==null || head.next==null) return head;
         ListNode slow = head;
         ListNode fast = head.next;
         while(fast!=null){
@@ -299,17 +296,18 @@ public class Solution {
         return head;
     }
     //82. Remove Duplicates from Sorted List II
+    //Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
     public ListNode deleteDuplicates1(ListNode head) {
         if(head==null || head.next==null) return head;
         if(head.val != head.next.val) {
-            head.next = deleteDuplicates(head.next);
+            head.next = deleteDuplicates1(head.next);
             return head;
         } 
         ListNode p = head;
         while(p!=null && p.val == head.val){
             p = p.next;
         }
-        return deleteDuplicates(p);
+        return deleteDuplicates1(p);  
     }
     //148. Sort List
     public ListNode sortList(ListNode head) {
@@ -376,6 +374,7 @@ public class Solution {
             }
             p=p.next;
         }
+        //convert list into primitive type array
         int output[] = input.stream().mapToInt(Integer::intValue).toArray();
         
         //approach using stack
@@ -406,37 +405,38 @@ public class Solution {
         
     }
     //328. Odd Even Linked List
+    //Given a singly linked list, group all odd nodes together followed by the even nodes. 
+    //Please note here we are talking about the node number and not the value in the nodes.
     public ListNode oddEvenList(ListNode head) {
         if(head == null || head.next == null || head.next.next==null) return head;
         ListNode tail = head;
-        ListNode p = head;
-        int l =1;
+        ListNode odd = head;
         while(tail.next!=null){
             tail = tail.next;
-            l++;
         }
-        ListNode tp = tail;
-         while (p!=tail ){
+        ListNode even_head = tail;
+         while (odd!=tail ){
 
-            ListNode temp = p.next;
-             if(temp!=tail){
-                p.next = temp.next;
-                p = p.next;
-                temp.next = null;
-                tp.next = temp;
-                tp = tp.next;   
+            ListNode even = odd.next;
+             if(even!=tail){
+                odd.next = even.next;
+                odd = odd.next;
+                even.next = null;
+                even_head.next = even;
+                even_head = even_head.next;   
             }
             else{
-                p.next = temp.next;
-                p = p.next;
-                temp.next = null;
-                tp.next = temp;
-                tp = tp.next;
+                odd.next = even.next;
+                odd = odd.next;
+                even.next = null;
+                even_head.next = even;
+                even_head = even_head.next;
                 return head;
              }
                 
         }
         return head;
     }
+    
     
 }
