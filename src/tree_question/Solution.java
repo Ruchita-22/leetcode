@@ -16,6 +16,8 @@ public class Solution {
     }
 
     //543. Diameter of Binary Tree
+    //Given a binary tree, you need to compute the length of the diameter of the tree. 
+    //The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
     int d;
     public int diameterOfBinaryTree(TreeNode root) {
         d =1;
@@ -81,7 +83,7 @@ public class Solution {
              inorder(root.right);   
          }
      }
-     //98. Validate Binary Search Tree
+     //98. Validate Binary Search Tree == on inorder traverse BST will give ascending order number 
      public boolean isValidBST(TreeNode root) {
 		inorder1(root);
 		int array[] = list.stream().mapToInt(Integer::intValue).toArray();
@@ -112,7 +114,7 @@ public class Solution {
  		stack1.push(root); 
  		List<Integer> level = new ArrayList<Integer>();
  		
- 		while(!stack1.isEmpty() || !stack1.isEmpty()) {
+ 		while(!stack1.isEmpty()) {
  			while(!stack1.isEmpty()) {
  				TreeNode t = stack1.pop();
                  level.add(t.val);
@@ -193,5 +195,17 @@ public class Solution {
 		int right = height(root.right);
 		return Math.max(left, right)+1;
 	}
+	
+	public static TreeNode invertTree(TreeNode root) {
+		if(root==null)
+			return null;
+		TreeNode temp = root.left;
+		root.left = root.right;
+		root.right = temp;
+		invertTree(root.left);
+		invertTree(root.right);
+		return root;
+        
+    }
  
 }
