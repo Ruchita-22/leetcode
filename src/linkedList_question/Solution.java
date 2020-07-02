@@ -3,6 +3,8 @@ package linkedList_question;
 import java.util.ArrayList;
 import java.util.Stack;
 
+  
+
 public class Solution {
 	
 	//237. Delete Node in a Linked List
@@ -130,32 +132,82 @@ public class Solution {
     }
     //92. Reverse Linked List II
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if(head==null || head.next==null)   return head;
-        ListNode p = head;
+    	if(head==null || head.next==null)   return head;
+        ListNode curr_node = head;
         ListNode prev = null;
         int i=1;
         while(i<m){
-            prev =p;
-            p = p.next;
+            prev = curr_node;
+            curr_node = curr_node.next;
             i++;
         }
         ListNode connection = prev;
-        ListNode tail = p;
+        ListNode tail = curr_node;
+        
         while(i<=n){
-            ListNode nextNode=p.next;
-            p.next = prev;
-            prev = p;
-            p = nextNode;
+            ListNode next_node=curr_node.next;
+            curr_node.next = prev;
+            prev = curr_node;
+            curr_node = next_node;
             i++;
         }
         if(connection !=null)   
             connection.next = prev;
         else
             head = prev;
-        tail.next = p;
+        tail.next = curr_node;
         return head;
     }
-    
+    //25. Reverse Nodes in k-Group
+    public ListNode reverseKGroup(ListNode head, int k) {
+		// check if linked list is empty or reverse every element
+		if(head==null || k == 1)   return head;
+		ListNode x = new ListNode(0);
+		x.next = head;
+		ListNode curr_node = head;
+		ListNode prev = x;
+		while(curr_node!=null) {
+			ListNode temp = hasNode(curr_node,k);
+			if(temp!=null) {
+				ListNode next_start = temp.next;
+				temp.next = null;
+				ListNode temp_head = reverse(curr_node,prev);
+				if(x.next == head) {
+					x.next = temp_head;
+				}
+				else {
+					prev.next = temp_head;
+				}
+				prev = curr_node;
+				curr_node.next = next_start;
+				curr_node = next_start;
+			}
+			else {
+				curr_node = curr_node.next;
+			}
+		}
+		return x.next;
+		
+	}
+	public static ListNode reverse(ListNode curr_node, ListNode prev) {
+		while(curr_node!=null) {
+			ListNode next_node = curr_node.next;
+			curr_node.next = prev;
+			prev = curr_node;
+			curr_node = next_node;
+		}
+		return prev;		
+	}
+	public static ListNode hasNode(ListNode curr_node , int k) {
+		//checking if sufficient node exist to reverse
+		ListNode temp = curr_node;
+		while(k>1 && temp!=null) {
+			k--;
+			temp = temp.next;
+		}
+		return temp;
+	}
+
     //141. Linked List Cycle
     public boolean hasCycle(ListNode head) {
         if(head == null)

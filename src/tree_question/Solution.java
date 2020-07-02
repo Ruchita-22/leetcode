@@ -20,9 +20,9 @@ public class Solution {
     //The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
     int d;
     public int diameterOfBinaryTree(TreeNode root) {
-        d =1;
+        d = 1;
         maxDepth1(root);
-        return d -1;
+        return d - 1;
         
     }
     public int maxDepth1(TreeNode root) {
