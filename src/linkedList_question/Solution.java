@@ -12,7 +12,7 @@ public class Solution {
 	       node.val = node.next.val;
 	       node.next = node.next.next;
 	        
-	 }
+	}
 	//19. Remove Nth Node From End of List
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 	       // if(n==0) return head;
