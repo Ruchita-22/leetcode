@@ -41,7 +41,7 @@ public class GraphImpl {
 		visited[sv] = true;
 		for (int i = 0; i < adj_matrix.length; i++) {
 			if(adj_matrix[sv][i] == 1 && visited[i] == false)
-			dfsPrintHelper(adj_matrix, i,visited);
+				dfsPrintHelper(adj_matrix, i,visited);
 		}
 		
 		
@@ -54,16 +54,16 @@ public class GraphImpl {
 				bfsPrintHelper(adj_matrix, i, visited);
 		}
 	}
-
+	//sv=source vertex   cn=current vertex
 	private static void bfsPrintHelper(int[][] adj_matrix, int sv, boolean[] visited) {
 		Queue<Integer> queue = new LinkedList<>();
 		queue.add(sv);
 		visited[sv] = true;
 		while (!queue.isEmpty()) {
-			int front = queue.poll();
-			System.out.println(front);
+			int cv = queue.poll();
+			System.out.println(cv);
 			for (int i = 0; i < adj_matrix.length; i++) {
-				if(adj_matrix[front][i] == 1 && visited[i] == false) {
+				if(adj_matrix[cv][i] == 1 && visited[i] == false) {
 					queue.add(i);
 					visited[i] = true;
 				}

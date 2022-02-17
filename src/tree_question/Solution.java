@@ -140,8 +140,33 @@ public class Solution {
  		}
  		return list;  
      }
+    //Easy tree BFS level order traversal
+    public static List<List<Integer>> levelOrder_new(TreeNode root) {
+         
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        if(root==null)
+        	return list;
+        
+ 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+ 		queue.add(root);
+ 		while (!queue.isEmpty()) {
+ 			int size = queue.size();
+ 			List<Integer> level = new ArrayList<Integer>();
+ 			for (int i = 0; i < size; i++) {
+ 				TreeNode node = queue.poll();
+ 				level.add(node.val);
+ 				if(node.left!=null)
+ 					queue.add(node.left);
+ 				if(node.right!=null)
+ 					queue.add(root.right);
+			}
+ 			list.add(level);	
+		}
+ 		return list;
+     }
+    
      //102. Binary Tree Level Order Traversal
-     public List<List<Integer>> levelOrder(TreeNode root) {
+ /*    public List<List<Integer>> levelOrder(TreeNode root) {
          
          List<List<Integer>> list = new ArrayList<List<Integer>>();
  		Queue<TreeNode> queue1 = new ArrayDeque<>();
@@ -177,6 +202,7 @@ public class Solution {
  		level.clear();
  		return tempQueue;
  	}
+  */   
      //110. Balanced Binary Tree
      public boolean isBalanced(TreeNode root) {
          if(root==null || root.left == null && root.right==null)
