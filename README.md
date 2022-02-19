@@ -65,4 +65,18 @@ Grid
          5. SurroundedRegion
          6. WordSearch
      BFS
+	 
+	 
+String
+	1. length of string
+	2. reverse of string 
+	3. reverse of each words
+	4. reverse words 
+	5. valid parenthesis
+	6. check Palindrome
+	7. Max frequency word
+	
+Stack
+	
+	
          
