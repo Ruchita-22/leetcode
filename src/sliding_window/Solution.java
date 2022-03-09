@@ -1,14 +1,52 @@
 package sliding_window;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Solution {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//System.out.println(largestSubarrayOfSum(new int[] {4,1,1,1,2,3,5},5));
-		System.out.println(longestSubStringWithUniqueCharacter("aabacbebebe"));
+		System.out.println(largestSubarrayOfSumOfK(new int[] {4,1,1,1,2,3,5},2));
+		//System.out.println(longestSubStringWithUniqueCharacter("aabacbebebe"));
+
+	}
+	//Fixed window size
+	private static int largestSubarrayOfSumOfK(int arr[],int k) {
+		int i = 0, j=0,sum=0,res=0;
+		while (j<arr.length) {
+			//calculation
+			sum = sum+arr[j];
+			//untill window is achieve
+			if ( (j-i+1)<k )   
+				j++;
+			//maintain window
+			else if( (j-i+1)==k ) {
+				res = Math.max(sum, res);
+				sum = sum - arr[i];
+				i++; j++;
+			}
+			
+		}
+		return res;
+
+	}
+	
+	private static int countOccuranceOfAnagram(String s,String p) {
+		Map<Character, Integer> map = new HashMap<>();
+		char ch[] = p.toCharArray();
+		for (int i = 0; i < ch.length; i++) {
+			map.putIfAbsent(ch[i], 0);
+			map.put(ch[i], map.get(ch[i])+1);
+		}
+		int i=0,j=0;
+		int k = p.length();
+		while (j<s.length()) {
+			
+		}
+		return 0;
+		
 
 	}
 	//Variabe Window Size
@@ -46,7 +84,7 @@ public class Solution {
 			//untill condtion reach
 			if(map.size()<k)
 				j++;
-			//condition match compute cndidate ans
+			//condition match compute candidate ans
 			else if(map.size()==k) {
 				res = Math.max(j-i+1, res);
 				j++;

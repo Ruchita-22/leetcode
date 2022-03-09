@@ -1,6 +1,15 @@
 # leetcode
 leetcode
 
+Binary Search
+	1. Binary search in increasing sorted array
+	2. Binary search in decresing sorted array
+	3. Agnostic search
+	4. firstOccuranceOfKeyInSortedArray
+	5. lastOccuranceOfKeyInSortedArray
+	6. countNumberOfElementInSortedArray
+	7. numberOfTimesRotated
+	
 Dynamic programming question (15)
      dp.knapsack_0_1
           1. Kanpsack 0/1
@@ -77,6 +86,27 @@ String
 	7. Max frequency word
 	
 Stack
+	1. NextLargestElement to left
+	2. NextLargestElement to right 
+	3. NextSmallestElement to left
+	4. NextSmallestElement to right
+	5. Stock Span Problem
+
+
+Matrix
+	1. print the matrix
+	2. transpose of matrix
+	3. rotate 90 by left
+	4. sprint in sprial
+
+Numbers
+	1. Sum of Digits
+	2. reverse
+	3. Absolute Number
+	4. Armstrong
+	5. Prime
+	6. factorial
+	7. GCD
 	
 	
          
