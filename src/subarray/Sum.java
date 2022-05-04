@@ -123,7 +123,7 @@ public class Sum {
 		}
 		return length;
 	}
-	
+	//sliding window wala 
 	/*Sum of all subarrays of size K
 	Given an array arr[] and an integer K, the task is to calculate the sum of all subarrays of size K.
 	nput: arr[] = {1, 2, 3, 4, 5, 6}, K = 3
@@ -144,7 +144,7 @@ public class Sum {
 			System.out.print(" "+current_sum);
 		}
 	}
-	
+	//////////////////////////////////////////////////////////
 	
 	/*Smallest subarray with sum greater than a given value
 	Given an array of integers and a number x, find the smallest subarray with sum greater than the given value.

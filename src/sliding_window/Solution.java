@@ -1,8 +1,11 @@
 package sliding_window;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Solution {
 
@@ -49,6 +52,28 @@ public class Solution {
 		
 
 	}
+//	private static int[] maxOfAllSubArrayOfSizeK(int arr[],int k) {
+//		int i=0;
+//		int j=0;
+//		int res[] = new int[5];
+//		int tmp;
+//		Queue<Integer> max=new Queue<>();
+//		while(j<arr.length) {
+//			tmp = Math.max(tmp, arr[j]);
+//			max.add(arr[j]);
+//			if((j-i+1)<k)
+//				j++;
+//			else if(j-i+1==k) {
+//				res[t] = max.peek();
+//				
+//				
+//				i++; j++;
+//			}
+//				
+//			
+//		}
+//		return null;
+//	}
 	//Variabe Window Size
 	private static int largestSubarrayOfSum(int arr[],int k) {
 		int i=0,j=0;

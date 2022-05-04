@@ -10,7 +10,8 @@ import java.util.Stack;
 public class Solution {
 
 	public static void main(String[] args) {
-		System.out.println(wordWithMaxFrequency("my name is rc hello"));
+		System.out.println(solve(new int[] {1,4,3,5,2},3));
+		
 	}
 	private static int length(String s) {
 		if(s==null)
@@ -147,7 +148,50 @@ public class Solution {
 		}
 		return true;
 	}
+	private static int solve1(String s) {
+		//Input "00011011"
+        int i = 0,j=0;
+        String r = "";
+        int count = 0;
+        for(char c : s.toCharArray()) {
+        	if(c=='0')
+        		i++;
+        	else 
+        		j++;
+            r=r+c;
+            if(i==j){
+                count++;
+                r="";
+            }
+        }
+        return count;
+    }
 	
+	private static String solve2(String s) {
+        String r="";
+        for(char c: s.toCharArray()){
+            if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u'){
+                r = r+c;
+            }
+        }
+        return r;
+    }
+	private static int solve(int[] arr, int b) {
+        int c=0;
+        boolean s=false;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==b)
+                s=true;
+            if(arr[i]>b){
+                arr[i]=-1;
+                c++;
+            }
+        }
+        if(s==true)
+            return c;
+        else
+            return -1; 
+    }
 	
 
 }

@@ -92,6 +92,7 @@ public class SubArray {
 	//78. Subsets
 	//Given a set of distinct integers, nums, return all possible subsets (the power set).
 	//static List<List<Integer>> result = new ArrayList<>();  //better to pass this array in function
+	//https://www.youtube.com/watch?v=taIvqOIT3cM&t=108s
 	public static List<List<Integer>> subsets(int[] arr) {
 		List<List<Integer>> result = new ArrayList<>();
 		if(arr==null||arr.length==0)
@@ -101,7 +102,7 @@ public class SubArray {
 		findAllSubset(arr, result, subset,0);
 		return result; 
     }
-	
+	 
 	public static void findAllSubset(int[] arr,List<List<Integer>> result, List<Integer> subset, int startIndex) {
 		if(startIndex==arr.length) {
 			result.add(new ArrayList<>(subset));
@@ -141,6 +142,7 @@ public class SubArray {
 	}
 	
 	//46. Permutations
+	//https://leetcode.com/problems/permutations/
 	//Given a collection of distinct integers, return all possible permutations
 	static List<List<Integer>> result = new ArrayList<>();
 	public static List<List<Integer>> permute(int[] arr) {
