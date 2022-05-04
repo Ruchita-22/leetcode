@@ -319,16 +319,7 @@ public class Solution {
         else 
             return null;
     }
-    //876. Middle of the Linked List
-    public ListNode middleNode(ListNode head) {
-        ListNode a_pointer = head;
-        ListNode b_pointer = head;
-        while(b_pointer!=null && b_pointer.next != null){
-            a_pointer = a_pointer.next;
-            b_pointer = b_pointer.next.next;
-        }
-        return a_pointer;
-    }
+
     //83. Remove Duplicates from Sorted List
     public ListNode deleteDuplicates(ListNode head) {
     	if(head==null || head.next==null) return head;
