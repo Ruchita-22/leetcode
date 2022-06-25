@@ -25,6 +25,7 @@ public class Solution {
 				list.add(-1);
 			else if (!stack.isEmpty()&& stack.peek()>arr[i]) 
 				list.add(stack.peek());
+			
 			else if(!stack.isEmpty()&& stack.peek()<=arr[i]) {
 				while (!stack.isEmpty() && stack.peek()<=arr[i]) {
 					stack.pop();

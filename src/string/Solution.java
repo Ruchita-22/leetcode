@@ -13,16 +13,11 @@ public class Solution {
 		System.out.println(solve(new int[] {1,4,3,5,2},3));
 		
 	}
+
 	private static int length(String s) {
 		if(s==null)
 			return 0;
 		int length=0,i=0;
-		//giving error dont know why
-//		while(s.charAt(i)!='\0') {
-//			System.out.println(s.charAt(i));
-//			length++;
-//			i++;
-//		}
 		for (char ch: s.toCharArray()) {
 			length++;
 		}

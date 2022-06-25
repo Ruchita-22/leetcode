@@ -1,12 +1,55 @@
 package scaler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.stream.Collectors;
+
 public class Solution {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		print(solve(new int[] {3, 4, 4, 6}, new int[] {20, 4, 10, 2}));
+		print(solve(new int[] {3, 4, 5, 6}, 2));
 	}
 	
+	public static int solve(int n, int[] arr) {
+        // code here
+        List<Integer> list = new ArrayList<>();
+        for (int i : arr) {
+			list.add(i);
+		}
+        for(int i=0;i<n;i++){
+            if(list.contains(i)) {
+            }
+            else 
+            	return i;
+        }
+        return n;
+    }
+	
+	public static int[] solve(int[] a, int k) {
+		//print(a);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int n=a.length;
+        for(int i=0;i<n;i++){
+            pq.add(a[i]);
+            if(pq.size()>k){
+                pq.poll();
+            }
+        }
+        System.out.println(pq);
+        int res[] = new int[k];
+        int i=0;
+        while(pq.size()>0){
+        
+            res[i] = pq.poll();
+            i++;
+        }
+        //print(res);
+        return res;
+	} 
 	private static int countPattern(String s) {
 		//Input "00011011"
         int i = 0,j=0;
