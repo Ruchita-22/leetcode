@@ -16,7 +16,7 @@ public class Solution {
 	}
 
 	// Fixed window size
-	private static int largestSubarrayOfSumOfK(int arr[], int k) {
+	private static int largestSubarrayOfSumOfSizeK(int arr[], int k) {
 		int i = 0, j = 0, sum = 0, res = 0;
 		while (j < arr.length) {
 			// calculation
@@ -170,6 +170,7 @@ public class Solution {
 	}
 
 	// 974. Subarray Sums Divisible by K
+	//https://leetcode.com/problems/subarray-sums-divisible-by-k/
 	public int subarraysDivByK(int[] arr, int k) {
 		Map<Integer, Integer> map = new HashMap<>();
 		map.put(0, 1);
@@ -217,36 +218,37 @@ public class Solution {
 		return res;
 	}
 
-	private static int longestSubStringWithKUniqueCharacter(String s, int k) {
-		int i = 0, j = 0;
-		int res = 0;
-		Map<Character, Integer> map = new HashMap<>();
-		while (j < s.length()) {
-			// calculation
-			map.putIfAbsent(s.charAt(j), 0);
-			map.put(s.charAt(j), map.get(s.charAt(j)) + 1);
-			// untill condtion reach
-			if (map.size() < k)
-				j++;
-			// condition match compute candidate ans
-			else if (map.size() == k) {
-				res = Math.max(j - i + 1, res);
-				j++;
-			}
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        if(k>s.length())
+            return 0;
+        // write your code here
+        HashMap<Character,Integer> map = new HashMap<>();
 
-			else if (map.size() > k) {
-				while (map.size() > k) {
-					map.put(s.charAt(i), map.get(s.charAt(i)) - 1);
-					if (map.get(s.charAt(i)) == 0)
-						map.remove(s.charAt(i));
-					i++;
-				}
-				j++;
-			}
-
-		}
-		return res;
-	}
+        int i=0,j=0,len=0;
+        while(j<s.length()){
+            char c = s.charAt(j);
+            map.put(c,map.getOrDefault(c,0)+1);
+            if(map.size()<k){
+                j++;
+            }
+            if(map.size()==k){
+                len = Math.max(len,j-i+1);
+                j++;
+            }
+            else if(map.size()>k){
+                while(map.size()>k){
+                    char t = s.charAt(i);
+                    map.put(t,map.get(t)-1);
+                    if(map.get(t)==0){
+                        map.remove(t);
+                    }
+                    i++;
+                }
+                j++;
+            }
+        }
+        return len;
+    }
 
 	private static int longestSubStringWithUniqueCharacter(String s) {
 		int i = 0, j = 0;
@@ -254,13 +256,13 @@ public class Solution {
 		Map<Character, Integer> map = new HashMap<>();
 		while (j < s.length()) {
 			// calculation
-			map.putIfAbsent(s.charAt(j), 0);
-			map.put(s.charAt(j), map.get(s.charAt(j)) + 1);
+            char c = s.charAt(j);
+            map.put(c,map.getOrDefault(c,0)+1);
 			// untill condtion reach
 			// if(map.size()<(j-i+1))
 			// j++;
 			// condition match compute cndidate ans
-			if (map.size() == (j - i + 1)) {
+			if (map.size() == (j-i+1) ) {
 				res = Math.max(j - i + 1, res);
 				j++;
 			}
@@ -348,7 +350,9 @@ public class Solution {
 
 		return ans;
 	}
-
+	//424. Longest Repeating Character Replacement
+	//https://leetcode.com/problems/longest-repeating-character-replacement/
+	//pending
 	public static int characterReplacement(String s, int op) {
 		int f[] = new int[26];
 		int ans = 0;

@@ -70,7 +70,7 @@ public class Solution {
 	}
 
 	// Is magic?
-	private static int solve(int n) {
+	private static int sum(int n) {
 		while (n > 9) {
 			n = sumDigit(n);
 			System.out.println(n);
@@ -130,7 +130,6 @@ public class Solution {
 
 	}
 	// 779. K-th Symbol in Grammar
-
 	private static int generateGrammer(int n, int k) {
 		// base condition
 		if (n == 1 && k == 1)
@@ -141,6 +140,28 @@ public class Solution {
 		else
 			return generateGrammer(n - 1, k - mid) == 0 ? 1 : 0;
 	}
+	//89. Gray Code
+    static List<Integer> list = new ArrayList<Integer>();
+
+    public List<Integer> grayCode(int n) {
+        list.clear();
+        return solve(n);
+    }    
+    private static List<Integer> solve(int n){
+        if(n==1){
+            list.add(0);
+            list.add(1);
+            return list;
+        }
+        list = solve(n-1);
+
+        int i = list.size()-1;
+        while(i>=0){
+            list.add( (list.get(i)) + (1<<(n-1)) );
+            i--;
+        }
+        return list;
+    } 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	// Input output method

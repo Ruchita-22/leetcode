@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -145,27 +146,55 @@ public class Solution {
 		}
 	}
 
-	private static void frequentSort(int arr[]) {
-		// TODO Auto-generated method stub
-		// input = 1,1,1,3,2,2,4
-		HashMap<Integer, Integer> map = new HashMap<>();
-		for (int i = 0; i < arr.length; i++) {
-			map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-		}
-		System.out.println(map);
-		Queue<Integer> pq = new PriorityQueue<>((n1, n2) -> map.get(n1) - map.get(n2));
-		for (int n1 : map.keySet()) {
-			pq.add(n1);
-		}
-		while (!pq.isEmpty()) {
-			System.out.print(pq.poll() + " ");
-		}
-		for (Entry<Integer, Integer> e : map.entrySet()) {
-			int k = e.getKey();
-			int v = e.getValue();
-
-		}
-	}
+    public int[] frequencySort(int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i : arr){
+            map.put(i,map.getOrDefault(i,0)+1);
+            
+        }
+        List<Map.Entry<Integer, Integer>> l =new ArrayList<>(map.entrySet());
+        Collections.sort(l, (o1,o2)->
+        		o1.getValue()!=o2.getValue() ? 
+        		o1.getValue()-o2.getValue() : 
+        		o2.getKey()-o1.getKey()
+        );
+        System.out.println(l);
+        int i=0;
+        for(Map.Entry<Integer, Integer> e : l){
+            int f=e.getValue();
+            while(f>0){
+                arr[i]=e.getKey();
+                i++;
+                f--;
+            }
+        }
+        return arr;
+        
+    }
+    //451. Sort Characters By Frequency
+    //https://leetcode.com/problems/sort-characters-by-frequency/
+    public String frequencySort(String s) {
+        //List<Integer> res =  new ArrayList<>();
+        HashMap<Character,Integer> map = new HashMap<>();
+        PriorityQueue<Character> pq = new PriorityQueue<>((n1, n2) -> map.get(n2) - map.get(n1));
+        
+        for(char c : s.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        for(char c : map.keySet()){
+            pq.add(c);
+        }
+        String res = "";
+        while(pq.size()>0){
+            char c = pq.poll();
+            int f = map.get(c);
+            for(int i = 0;i<f;i++)
+                res += c;
+        }
+        return res;
+        
+        
+    }    
 
 	// 692. Top K Frequent Words
 	private static List<String> topKFrequent(String[] words, int k) {

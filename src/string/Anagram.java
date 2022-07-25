@@ -32,6 +32,22 @@ public class Anagram {
 		return map.size() == 0 ? true : false;
 
 	}
+    //242. Valid Anagram
+    public boolean isAnagram2(String s, String t) {
+        if(sort(s).equals(sort(t)))
+            return true;
+        else
+            return false;
+    }
+    public String sort(String s) {
+		char s1[]=s.toCharArray();
+		Arrays.sort(s1);
+		s = String.valueOf(s1);
+		return s;
+	}
+    //////////////////////////////////////////
+	
+	
 
 	private static boolean isAnagram1(String s1, String s2) {
 		if (s1.length() != s2.length())
@@ -107,7 +123,10 @@ public class Anagram {
 		return res;
 
 	}
-
+	// https://leetcode.com/problems/find-all-anagrams-in-a-string/
+	// 438. Find All Anagrams in a String
+	// 567. Permutation in String
+	// https://leetcode.com/problems/permutation-in-string/
 	public static List<Integer> findAnagrams1(String str, String p) {
 
 		if (str.length() < p.length())
@@ -139,6 +158,36 @@ public class Anagram {
 		}
 		return res;
 	}
+	private static int countOccuranceOfAnagram(String str, String p) {
+		if (str.length() < p.length())
+			return 0;
+
+		int fp[] = new int[26];
+		int fs[] = new int[26];
+		for (char c : p.toCharArray()) {
+			fp[c - 'a']++;
+		}
+		// before window hit or first window
+		for (int i = 0; i < p.length(); i++) {
+			char c = str.charAt(i);
+			fs[c - 'a']++;
+		}
+		int s = 0, e = p.length(), count = 0;
+		if (Arrays.equals(fp, fs))
+			count++;
+		// slide window and check
+		while (e < str.length()) {
+			fs[str.charAt(e) - 'a']++;
+			fs[str.charAt(s) - 'a']--;
+			s++;
+			e++;
+			if (Arrays.equals(fp, fs))
+				count++;
+
+		}
+		return count;
+	}	
+	
 
 	// 1446. Consecutive Characters
 	private static int maxPower(String s) {

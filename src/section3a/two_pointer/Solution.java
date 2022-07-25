@@ -120,6 +120,49 @@ public class Solution {
 	     }
 	     return Arrays.stream(res).boxed().collect(Collectors.toList());
    }
+	//2215. Find the Difference of Two Arrays
+    public List<List<Integer>> findDifference(int[] a, int[] b) {
+        Set<Integer> s = intersection1(a,b);
+        Set<Integer> s1 = new LinkedHashSet<>();
+        Set<Integer> s2 = new LinkedHashSet<>();
+        for(int i : a){
+            if(!s.contains(i))
+                s1.add(i);
+        }
+            
+        for(int j:b) {
+            if(!s.contains(j))
+                s2.add(j);
+        }
+        List<List<Integer>> l = new ArrayList<>();
+        l.add(new ArrayList<>(s1));
+        l.add(new ArrayList<>(s2));
+        return l;
+        
+        
+    }
+    private static Set<Integer> intersection1(int a[],int b[]){
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int i=0,j=0;
+        Set<Integer> s = new LinkedHashSet<>();
+        
+        while(i<a.length && j<b.length){
+            if(a[i]==b[j]) {
+                s.add(a[i]);
+                i++; j++;
+            }
+            else if(a[i]<b[j])
+                i++;
+            else if(a[i]>b[j])
+                j++;
+        }
+        return s;
+    }	
+	
+	
+	
+	
 	
 	private static int countWords(String[] w1, String[] w2) {
 		/* to run
