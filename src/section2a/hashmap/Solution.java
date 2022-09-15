@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Solution {
@@ -647,5 +648,39 @@ public class Solution {
 			System.out.println("Found");
 
 	}
+	//1282. Group the People Given the Group Size They Belong To
+	//https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {
+        
+        List<List<Integer>> result = new ArrayList<>();
+        HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
+        
+        for(int i=0;i<groupSizes.length;i++){
+            int size = groupSizes[i];
+            if(map.containsKey(size)){
+                ArrayList temp = map.get(size);
+                if(temp.size()<size){
+                    temp.add(i);
+                    map.replace(size,temp);
+                }
+                else {
+                    result.add(temp);
+                    temp.clear();
+                    temp.add(i);
+                }
+            }
+            else{
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(i);
+                map.put(size,temp);
+            }
+        }
+        for(Map.Entry e : map.entrySet()) {
+        	result.add((List<Integer>) e.getValue());
+        }
+        return result;
+        
+    }
+
 
 }

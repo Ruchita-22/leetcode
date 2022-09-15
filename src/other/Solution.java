@@ -129,8 +129,7 @@ public class Solution {
 	        if(n==1)    return true;
 	        else    return false;
 	    }
-	    public List<List<String>> group
-		s(String[] strs) {
+	    public List<List<String>> groups(String[] strs) {
 	        if (strs.length == 0) return new ArrayList();
 	        Map<String, List> map = new HashMap<String, List>();
 	        for (int i = 0; i < strs.length; i++) {

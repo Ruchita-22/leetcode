@@ -254,15 +254,7 @@ public class Solution {
 
 	}
 
-	private static void print(int arr[]) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + " ");
-		}
-		System.out.println();
-
-	}
-
+	
 	private static int maxTripletSum(int arr[]) {
 		// TODO Auto-generated method stub
 		int k = 3;
@@ -408,5 +400,40 @@ public class Solution {
 			System.out.println(min.poll().key);
 		}
 	}
+	//2233. Maximum Product After K Increments
+	//https://leetcode.com/problems/maximum-product-after-k-increments/
+    public int maximumProduct(int[] arr, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int e : arr){
+            pq.add(e);
+        }
+        while(k>0 && pq.size()>0){
+            int n = pq.poll();
+            n++; k--;
+            pq.add(n);
+        }
+        int ans = 1;
+        while(pq.size()>0){
+            ans = mul(ans,pq.poll());
+        }
+        return ans;
+        
+    }
+    
+    
+	//////////////////Helper Function///////////////////
+	private static void print(int arr[]) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.println();
+
+	}
+	private static int mul(int a, int b){
+        int mod = (int)(1e9+7);
+        return (int)(((a % mod)*1L*(b % mod)+ mod) % mod);
+    }
+
 
 }

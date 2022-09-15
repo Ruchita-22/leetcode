@@ -11,7 +11,7 @@ public class Solution {
 		System.out.println(ceilElementInSortedArray(arr,5));
 
 	}
-	private static int binarySearch(int arr[], int x) {
+	private static int binarySearchAsc(int arr[], int x) {
 		//Increasing sorted Array
 		int start = 0;
 		int end = arr.length - 1;
@@ -29,7 +29,7 @@ public class Solution {
 		}
 		return -1;
 	}
-	private static int binarySearch1(int arr[], int x) {
+	private static int binarySearchDesc(int arr[], int x) {
 		//Decreasing sorted Array
 		int start = 0;
 		int end = arr.length - 1;
@@ -50,9 +50,9 @@ public class Solution {
 	private static int agnosticBinarySearch(int arr[], int x) {
 		//sorted Array not known ascending or decending
 		if(arr[0]<arr[1])
-			return binarySearch(arr, x);
+			return binarySearchAsc(arr, x);
 		else if(arr[0]>arr[1])
-			return binarySearch1(arr, x);
+			return binarySearchDesc(arr, x);
 		else 
 			return -1;
 	}
@@ -157,4 +157,45 @@ public class Solution {
 		
 
 	}
+    public int findPeakElement(int[] arr) {
+        
+        if(arr.length==1)
+            return 0;
+      
+      
+        int n = arr.length-1;
+        int s = 0 , e = arr.length-1;
+        
+        while(s<=e){
+            int m = s+(e-s)/2;
+            
+            if(m==0){
+                if(arr[m]>arr[m+1])
+                    return m;
+                else 
+                    return m+1;
+               
+            }
+            else if(m==arr.length-1){
+                if(arr[m]>arr[arr.length-2])
+                    return m;
+                else
+                    return m-1;
+               
+                
+            }
+            else {
+                if(arr[m]>arr[m-1] && arr[m] > arr[m+1])
+                    return m;
+                else if(arr[m] < arr[m-1])
+                    e = m-1;
+                else if(arr[m] < arr[m+1])
+                    s = m+1;
+                
+            }
+        }
+        return -1;
+        
+        
+    }
 }
