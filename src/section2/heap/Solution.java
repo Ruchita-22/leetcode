@@ -25,34 +25,8 @@ public class Solution {
 //		System.out.println(closestCost(baseCosts,toppingCosts,18));
 	}
 
-	public static int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
-		int ans = 0;
-		int d = Integer.MAX_VALUE, dmin = Integer.MAX_VALUE;
-		for (int i = 0; i < baseCosts.length; i++) {
-			int cost = 0;
-			cost = cost + baseCosts[i];
-			d = Math.abs(cost - target);
 
-			if (d < dmin) {
-				dmin = d;
-				ans = cost;
-			}
-			for (int j = 0; j < toppingCosts.length - 2; j++) {
-				int costWithTopping = cost;
-				for (int k = j; k < j + 2; k++) {
-					costWithTopping = costWithTopping + toppingCosts[k];
-					d = Math.abs(costWithTopping - target);
-					if (d < dmin) {
-						dmin = d;
-						ans = costWithTopping;
-					}
-				}
-			}
-		}
-		return ans;
-
-	}
-
+	
 	private static int KthSmallestElemet(int arr[], int k) {
 		// input= 7,10,4,3,20,15
 		PriorityQueue<Integer> pq = new PriorityQueue<>(k, Collections.reverseOrder());
@@ -91,7 +65,19 @@ public class Solution {
 		return pq.peek().intValue();
 
 	}
-
+	// no. in form of string
+    public String kthLargestNumber(String[] nums, int k) {
+        PriorityQueue<String> pq = new PriorityQueue<>(
+            (o1,o2) -> o1.length() != o2.length() ? o1.length() - o2.length() : o1.compareTo(o2)
+                    );
+        for(String s : nums){
+            pq.add(s);
+            if(pq.size()>k) pq.poll();
+        }
+        return pq.poll();
+        
+    }
+	// K sorted array
 	private static int[] heapSort(int arr[], int k) {
 		// TODO Auto-generated method stub
 		//// input= 6,5,3,2,8,10,9
@@ -111,29 +97,42 @@ public class Solution {
 		return arr;
 
 	}
-
-	private static void kClosedElement(int arr[], int k, int n) {
-		// TODO Auto-generated method stub
-		PriorityQueue<Pair> pq = new PriorityQueue<Pair>((o1, o2) -> o1.getKey() - o2.getKey());
-		for (int i = 0; i < arr.length; i++) {
-			pq.add(new Pair((arr[i] - n), arr[i]));
-			if (pq.size() > k)
-				pq.poll();
-		}
-		while (pq.size() > 0) {
-			System.out.println(pq.peek().getValue());
-			pq.poll();
-		}
+	// k closed number to x
+	static class Pair{
+	    int x;
+	    int y;
+	    public Pair(int x, int y){
+	        this.x = x;
+	        this.y = y;
+	    }
 	}
+	public List<Integer> findClosestElements(int[] arr, int k, int x) {
+
+        PriorityQueue<Pair> q = new PriorityQueue<>((o1,o2)->
+            o1.x != o2.x ? 
+            o2.x - o1.x : 
+            o2.y - o1.y);
+        for(int i=0;i<arr.length;i++){
+            q.add(new Pair(Math.abs(arr[i]-x),arr[i]));
+            while(q.size()>k)   q.poll();
+        }
+        List<Integer> res = new ArrayList<Integer>();
+        while(q.size()>0){
+            res.add(q.poll().y);
+        }
+        Collections.sort(res);
+        return res;
+    }
 
 	private static void kFrequentElement(int arr[], int k) {
 		// TODO Auto-generated method stub
 		// input = 1,1,1,3,2,2,4 n=2
 		HashMap<Integer, Integer> map = new HashMap<>();
-		for (int i = 0; i < arr.length; i++) {
-			map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-		}
-		System.out.println(map);
+		for(int e : arr){
+            map.put(e,map.getOrDefault(e,0)+1);
+            
+        }
+		
 		// sort on value/ frequency
 		Queue<Integer> pq = new PriorityQueue<>((n1, n2) -> map.get(n1) - map.get(n2));
 		for (int n1 : map.keySet()) {
@@ -148,8 +147,8 @@ public class Solution {
 
     public int[] frequencySort(int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i : arr){
-            map.put(i,map.getOrDefault(i,0)+1);
+        for(int e : arr){
+            map.put(e,map.getOrDefault(e,0)+1);
             
         }
         List<Map.Entry<Integer, Integer>> l =new ArrayList<>(map.entrySet());
@@ -219,11 +218,20 @@ public class Solution {
 		return res;
 
 	}
+	static class Pair1 {
+		int key,x,y;
 
+		public Pair1(int key, int x, int y) {
+			super();
+			this.key = key;
+			this.x = x;
+			this.y = y;
+		}
+	}	
 	private static void kCloseestToOrigin(int arr[][]) {
 		// TODO Auto-generated method stub
 		// input int arr1[][]= {{1,2},{-2,-2},{5,8},{0,1}};
-		PriorityQueue<Pair1> pq = new PriorityQueue<>((o1, o2) -> o2.getKey() - o1.getKey());
+		PriorityQueue<Pair1> pq = new PriorityQueue<>((o1, o2) -> o2.key - o1.key);
 		for (int i = 0; i < arr.length; i++) {
 			int x = arr[i][0], y = arr[i][1];
 			int d = (x * x) + (y * y);
@@ -231,7 +239,7 @@ public class Solution {
 			if (pq.size() > 1)
 				pq.poll();
 		}
-		System.out.println(pq.peek().getX() + " " + pq.peek().getY());
+		System.out.println(pq.peek().x + " " + pq.peek().y);
 
 	}
 
@@ -247,8 +255,9 @@ public class Solution {
 		while (pq.size() > 1) {
 			int a = pq.poll();
 			int b = pq.poll();
-			res = res + a + b;
-			pq.add(a + b);
+			int sum = a+b;
+			res = res + sum;
+			pq.add(sum);
 		}
 		return res;
 
@@ -272,11 +281,22 @@ public class Solution {
 		}
 		return sum;
 	}
-
+	
 	// 373. Find K Pairs with Smallest Sums
+	static class Pair2 {
+		 int a,b,c;
+	     public Pair2(int a, int b,int c) {
+	         super();
+
+	         this.a  = a;
+	         this.b = b;
+	         this.c = c;
+
+		 }   
+	}     
 	private static List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
 
-		PriorityQueue<Pair2> pq = new PriorityQueue<>((o1, o2) -> o2.getC() - o1.getC());
+		PriorityQueue<Pair2> pq = new PriorityQueue<>((o1, o2) -> o2.c - o1.c);
 
 		for (int i = 0; i < nums1.length; i++) {
 			for (int j = 0; j < nums2.length; j++) {
@@ -294,8 +314,8 @@ public class Solution {
 		List<List<Integer>> res = new ArrayList<>();
 		while (pq.size() > 0) {
 			List<Integer> l = new ArrayList<>();
-			l.add(pq.peek().getA());
-			l.add(pq.peek().getB());
+			l.add(pq.peek().a);
+			l.add(pq.peek().b);
 			res.add(l);
 			pq.poll();
 		}
@@ -304,6 +324,16 @@ public class Solution {
 	}
 
 	// https://goodtecher.com/leetcode-1057-campus-bikes/
+	static class Pair3 {
+		int wi,bi,d;
+		public Pair3(int wi, int bi,int d) {
+			super();
+			
+			this.wi = wi;
+			this.bi = bi;
+			this.d = d;
+		}
+	}	
 	private static int[] assignBikes(int[][] workers, int[][] bikes) {
 
 		if (workers.length == 0)
@@ -316,7 +346,7 @@ public class Solution {
 		}
 
 		PriorityQueue<Pair3> pq = new PriorityQueue<>(
-				(o1, o2) -> o1.getD() != o2.getD() ? o1.getD() - o2.getD() : o1.getWi() - o2.getWi());
+				(o1, o2) -> o1.d != o2.d ? o1.d - o2.d : o1.wi - o2.wi);
 
 		for (int i = 0; i < workers.length; i++) {
 			for (int j = 0; j < bikes.length; j++) {
@@ -327,10 +357,10 @@ public class Solution {
 
 		while (pq.size() > 0) {
 			Pair3 p = pq.poll();
-			if (l.contains(p.getBi()) || l.get(p.getWi()) != -1)
+			if (l.contains(p.bi) || l.get(p.wi) != -1)
 				continue;
 			else
-				l.set(p.getWi(), p.getBi());
+				l.set(p.wi, p.bi);
 		}
 		return l.stream().mapToInt(Integer::intValue).toArray();
 	}
@@ -340,8 +370,9 @@ public class Solution {
 	private static int maxProfit(int[] arr, int b) {
 		int n = arr.length;
 		PriorityQueue<Integer> pq = new PriorityQueue(n, Collections.reverseOrder());
-		for (int i = 0; i < n; i++)
-			pq.add(arr[i]);
+		for (int e : arr)
+			pq.add(e);
+		
 		int p = 0;
 		for (int i = b; i > 0; i--) {
 			int t = pq.poll();
@@ -356,8 +387,22 @@ public class Solution {
 
 	// Merge K sorted arrays
 	// https://www.interviewbit.com/problems/merge-k-sorted-arrays/
+	public class Element {
+		int data;
+		int row;
+		int col;
+		
+		public Element(int data, int row, int col) {
+			super();
+			this.data = data;
+			this.row = row;
+			this.col = col;
+		}
+	}	
 	public int[] mergeKSortedArray(int[][] arr) {
-		PriorityQueue<Element> pq = new PriorityQueue<>((o1, o2) -> o1.getData() - o2.getData());
+		
+		PriorityQueue<Element> pq = new PriorityQueue<>((o1, o2) -> o1.data - o2.data);
+		
 		for (int i = 0; i < arr.length; i++) {
 			pq.add(new Element(arr[i][0], i, 0));
 		}
@@ -365,13 +410,62 @@ public class Solution {
 		int i = 0;
 		while (pq.size() > 0) {
 			Element e = pq.poll();
-			res[i] = e.getData();
+			res[i] = e.data;
 			i++;
-			int r = e.getRow();
-			int c = e.getCol();
+			int r = e.row;
+			int c = e.row;
 			pq.add(new Element(arr[r][c + 1], r, c + 1));
 		}
 		return res;
+
+	}
+	//2233. Maximum Product After K Increments
+	//https://leetcode.com/problems/maximum-product-after-k-increments/
+	public int maximumProduct(int[] arr, int k) {
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+		for (int e : arr) {
+			pq.add(e);
+		}
+		while (k > 0 && pq.size() > 0) {
+			int n = pq.poll();
+			n++;
+			k--;
+			pq.add(n);
+		}
+		int ans = 1;
+		while (pq.size() > 0) {
+			ans = mul(ans, pq.poll());
+		}
+		return ans;
+
+	}
+
+	public static int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+		int ans = 0;
+		int d = Integer.MAX_VALUE, dmin = Integer.MAX_VALUE;
+		
+		for (int i = 0; i < baseCosts.length; i++) {
+			int cost = 0;
+			cost = cost + baseCosts[i];
+			d = Math.abs(cost - target);
+
+			if (d < dmin) {
+				dmin = d;
+				ans = cost;
+			}
+			for (int j = 0; j < toppingCosts.length - 2; j++) {
+				int costWithTopping = cost;
+				for (int k = j; k < j + 2; k++) {
+					costWithTopping = costWithTopping + toppingCosts[k];
+					d = Math.abs(costWithTopping - target);
+					if (d < dmin) {
+						dmin = d;
+						ans = costWithTopping;
+					}
+				}
+			}
+		}
+		return ans;
 
 	}
 
@@ -380,47 +474,27 @@ public class Solution {
 		// Min Heap
 		// insert it any where but remove the smallest element
 		PriorityQueue<Integer> min = new PriorityQueue<>();
-		PriorityQueue<Pair> min1 = new PriorityQueue<>((o1, o2) -> o1.getKey() - o2.getKey());
+		PriorityQueue<Pair> min1 = new PriorityQueue<>((o1, o2) -> o1.x - o2.x);
 
 		// Max heap
 		// insert it any where but remove the largest element
 		PriorityQueue<Integer> max = new PriorityQueue<>(3, Collections.reverseOrder());
-		PriorityQueue<Pair> max1 = new PriorityQueue<>((o1, o2) -> o2.getKey() - o1.getKey());
+		PriorityQueue<Pair> max1 = new PriorityQueue<>((o1, o2) -> o2.x - o1.x );
 	}
 
 	private static void solve1() {
 		// TODO Auto-generated method stub
 		Pair a[] = { new Pair(1, 1), new Pair(2, 2), new Pair(3, 3) };
 		// PriorityQueue<Pair> min = new PriorityQueue<>(new MyComparator());
-		PriorityQueue<Pair> min = new PriorityQueue<>((o1, o2) -> o2.getKey() - o1.getKey());
+		PriorityQueue<Pair> min = new PriorityQueue<>((o1, o2) -> o2.x - o1.x);
 		min.add(new Pair(1, 1));
 		min.add(new Pair(3, 3));
 		min.add(new Pair(2, 2));
 		while (min.size() > 0) {
-			System.out.println(min.poll().key);
+			System.out.println(min.poll().x);
 		}
 	}
-	//2233. Maximum Product After K Increments
-	//https://leetcode.com/problems/maximum-product-after-k-increments/
-    public int maximumProduct(int[] arr, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int e : arr){
-            pq.add(e);
-        }
-        while(k>0 && pq.size()>0){
-            int n = pq.poll();
-            n++; k--;
-            pq.add(n);
-        }
-        int ans = 1;
-        while(pq.size()>0){
-            ans = mul(ans,pq.poll());
-        }
-        return ans;
-        
-    }
-    
-    
+	
 	//////////////////Helper Function///////////////////
 	private static void print(int arr[]) {
 		// TODO Auto-generated method stub

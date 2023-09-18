@@ -10,9 +10,91 @@ import java.util.Stack;
 public class Solution {
 
 	public static void main(String[] args) {
-		System.out.println(solve(new int[] {1,4,3,5,2},3));
+		//System.out.println(solve(new int[] {1,4,3,5,2},3));
+		
+		System.out.println(multiply("9","99"));
 		
 	}
+	public static String multiply(String num1, String num2) {
+        int l1 = num1.length();
+        int l2 = num2.length();
+        String a = l1>=l2 ? num1 : num2;
+        String b = l1<l2 ? num1 : num2;
+        
+        String t1 = "", t2 = "";
+        int pos = 0;
+        for(int j=l2-1;j>=0;j--) {
+        	int n = b.charAt(j)-'0';
+        	t2 = multiple(a,n);
+        	t1 = add(t1,t2,pos);
+        	System.out.println(t2+" "+t1);
+        	pos++;
+        }
+        return t1;
+        
+    }
+    private static String multiple(String s, int a){
+    	StringBuilder sb = new StringBuilder();
+    	int c=0;
+    	for(int i=s.length()-1;i>=0;i--) {
+    		int res = s.charAt(i)-'0';
+    		res = res*a;
+    		res = res+c;
+    		c = res/10;
+    		int v = res%10;
+    		sb.insert(0, v);
+    	}
+    	if(c>0)	sb.insert(0, c);
+    	return new String(sb);
+    	
+    }
+    private static String add(String a, String b, int pos){
+    	int l1 = a.length();
+        int l2 = b.length();
+        
+        if(l1==0)	return b;
+        StringBuilder sb = new StringBuilder();
+        int i = l1;
+        while(pos>0) {
+        	sb.insert(0, a.charAt(i-1));
+        	i--;
+        	pos--;
+        }
+        
+        
+        int  j=l2-1;
+        i--;
+        int c=0;
+        while(i>=0 && j>=0) {
+        	int t = a.charAt(i)-'0'+b.charAt(j)-'0'+c;
+        	if(t>0) {
+        		c = t/10;
+        		int v = t%10;
+        		sb.insert(0,Integer.toString(v));
+        	}
+        	i--; j--;
+        }
+        while(i>=0) {
+        	int t = a.charAt(i)-'0'+c;
+        	if(t>0) {
+        		c = t/10;
+        		int v = t%10;
+        		sb.insert(0,Integer.toString(v));
+        	}
+        	i--; 
+        }
+        while(j>=0) {
+        	int t = b.charAt(j)-'0'+c;
+        	if(t>0) {
+        		c = t/10;
+        		int v = t%10;
+        		sb.insert(0,Integer.toString(v));
+        	}
+        	j--; 
+        }
+        return new String(sb);
+
+    }
 
 	private static int length(String s) {
 		if(s==null)

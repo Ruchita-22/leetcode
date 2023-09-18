@@ -6,8 +6,8 @@ public class Collections {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		_2DArray();
-
+		
+		
 	}
 	private static void _2DArray() {
 		// Input list

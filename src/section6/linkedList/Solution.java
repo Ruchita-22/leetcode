@@ -114,10 +114,12 @@ public class Solution {
     //Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
 	private static  ListNode deleteDuplicates1(ListNode head) {
         if(head==null || head.next==null) return head;
+        
         if(head.val != head.next.val) {
             head.next = deleteDuplicates1(head.next);
             return head;
         } 
+        
         ListNode p = head;
         while(p!=null && p.val == head.val){
             p = p.next;
@@ -193,105 +195,8 @@ public class Solution {
             return null;
     }
 	///////////////////////////////////////////////////////////////////////////
-	// Slow and fast pointer 
-	// slow s
-	//fast f
 	
-	//876. Middle of the Linked List
-	private static ListNode middleNode(ListNode head) {
 	
-		if(head==null||head.next==null)
-			return head;
-		ListNode s=head,f=head;
-		while(f!=null && f.next!=null && f.next.next!=null){
-			s=s.next;
-			f=f.next.next;
-		}
-		if(f.next==null)
-			return s;
-		else 
-			return s.next;
-	
-	}
-	//2095. Delete the Middle Node of a Linked List
-	private static ListNode deleteMiddle(ListNode head) {
-		if(head==null||head.next==null)
-			return null;
-		ListNode s=head,f=head,p=head;
-		while(f!=null && f.next!=null && f.next.next!=null){
-			p=s;
-			s=s.next;
-			f=f.next.next; 
-		}
-		if(f.next==null){
-		}
-		else {
-			p=s;
-			s=s.next;
-		}
-		p.next=s.next;
-		s.next=null;
-		return head;
-		
-	}
-	//141. Linked List Cycle
-	private static boolean hasCycle(ListNode head) {
-	
-		if(head==null||head.next!=null)
-			return false;
-		
-		ListNode s=head,f=head;
-		while(f!=null && f.next!=null){
-			s = s.next;
-			f = f.next.next;
-			if(s==f)
-				return true;
-		}
-		
-		return false;
-	}
-	//142. Linked List Cycle II
-	private static ListNode detectCycleStart(ListNode head) {
-	
-		if(head==null||head.next==null)
-			return null;
-		
-		ListNode s=head, f=head;
-		while(f!=null && f.next!=null && f.next.next!=null) {
-			s=s.next;
-			f=f.next.next;
-			if(s==f){
-				s=head;
-				while(s!=f){
-					s=s.next;
-					f=f.next;
-				}
-				return s;    
-			}
-		}
-	
-		return null;
-	}
-	
-	private static boolean isPalindrome(ListNode head) {
-		ListNode s=head,f=head;
-		while(f.next!=null && f.next.next==null) {
-			s=s.next;
-			f=f.next.next;
-		}
-		s.next = reverseList(s.next);
-		ListNode start = head,mid=s.next;
-		while(mid!=null) {
-			if(start.val!=mid.val)
-				return false;
-			start=start.next;
-			mid=mid.next;
-		}
-		s.next=reverseList(s.next);
-		
-		
-		return true;
-	}
 	private static ListNode reverseList(ListNode head) {
         if(head==null)	return null;
         ListNode p=null,c=head,n=head.next;
@@ -340,31 +245,6 @@ public class Solution {
 	}
 	//19. Remove Nth Node From End of List
 	public ListNode removeNthFromEnd(ListNode head, int n) {
-	       // if(n==0) return head;
-	       //  ListNode p =head;
-	       //  if(head.next == null && n==1) return null;
-	       //  if(n==1){
-	       //      while(p.next.next!=null){
-	       //          p = p.next;
-	       //      }
-	       //      p.next = null;
-	       //      return head;
-	       //  }
-	       //  p =head;
-	       //  int l=0;
-	       //  while(p!=null){
-	       //      l++;
-	       //      p = p.next;
-	       //  }
-	       //  p = head;
-	       //  int t = l-n;
-	       //  if(t==0) return head.next;
-	       //  while (t!=1){
-	       //      p = p.next;
-	       //      t--; 
-	       //  }
-	       //  p.next = p.next.next;
-	       //  return head;
 	        ListNode dummy = new ListNode(0);
 	        dummy.next = head;
 	        ListNode fast = dummy;

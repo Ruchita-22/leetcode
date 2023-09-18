@@ -9,7 +9,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.function.Function;
 
 public class Solution {
 
@@ -17,7 +19,7 @@ public class Solution {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	// 1512. Number of Good Pairs
 	private static int numIdenticalPairs(int[] arr) {
 		HashMap<Integer, Integer> map = new HashMap<>();
@@ -493,6 +495,7 @@ public class Solution {
 		return false;
 
 	}
+
 	// 36. Valid Sudoku
 	public boolean isValidSudoku(char[][] suduko) {
 		HashSet<String> set = new HashSet<>();
@@ -509,7 +512,7 @@ public class Solution {
 		}
 		return true;
 
-	}	
+	}
 
 	public List<String> findAndReplacePattern(String[] words, String pattern) {
 		String p = generate(pattern);
@@ -563,8 +566,6 @@ public class Solution {
 
 	}
 
-
-
 	// 560. Subarray Sum Equals K
 	static int countSubArrayWithSumK(int arr[], int n, int k) {
 		HashMap<Integer, Integer> map = new HashMap<>();
@@ -584,27 +585,28 @@ public class Solution {
 
 		return count;
 	}
-	//1. Two Sum
-	//https://leetcode.com/problems/two-sum/
-    public int[] twoSum(int[] arr, int target) {
-        HashMap<Integer,Integer> map = new HashMap<>();
-        //element , index
-        int res[] = new int[2];
-        for(int i=0;i<arr.length;i++){
-            int a = arr[i];
-            int b = target-a;
-            if(map.containsKey(b)){
-                res[0] = (int) map.get(b);
-                res[1] = i;
-                return res;
-            }
-            else{
-                map.put(a,i);
-            }
-        }
-        return new int[0];
-        
-    }
+
+	// 1. Two Sum
+	// https://leetcode.com/problems/two-sum/
+	public int[] twoSum(int[] arr, int target) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		// element , index
+		int res[] = new int[2];
+		for (int i = 0; i < arr.length; i++) {
+			int a = arr[i];
+			int b = target - a;
+			if (map.containsKey(b)) {
+				res[0] = (int) map.get(b);
+				res[1] = i;
+				return res;
+			} else {
+				map.put(a, i);
+			}
+		}
+		return new int[0];
+
+	}
+
 	// 1248. Count Number of Nice Subarrays
 	public int numberOfSubarrays(int[] arr, int k) {
 		for (int i = 0; i < arr.length; i++) {
@@ -648,39 +650,221 @@ public class Solution {
 			System.out.println("Found");
 
 	}
-	//1282. Group the People Given the Group Size They Belong To
-	//https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
-    public List<List<Integer>> groupThePeople(int[] groupSizes) {
-        
-        List<List<Integer>> result = new ArrayList<>();
-        HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
-        
-        for(int i=0;i<groupSizes.length;i++){
-            int size = groupSizes[i];
-            if(map.containsKey(size)){
-                ArrayList temp = map.get(size);
-                if(temp.size()<size){
-                    temp.add(i);
-                    map.replace(size,temp);
-                }
-                else {
-                    result.add(temp);
-                    temp.clear();
-                    temp.add(i);
-                }
-            }
-            else{
-                ArrayList<Integer> temp = new ArrayList<>();
-                temp.add(i);
-                map.put(size,temp);
-            }
+
+	// 1282. Group the People Given the Group Size They Belong To
+	// https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
+	public List<List<Integer>> groupThePeople(int[] groupSizes) {
+
+		List<List<Integer>> result = new ArrayList<>();
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+		for (int i = 0; i < groupSizes.length; i++) {
+			int size = groupSizes[i];
+			if (map.containsKey(size)) {
+				ArrayList temp = map.get(size);
+				if (temp.size() < size) {
+					temp.add(i);
+					map.replace(size, temp);
+				} else {
+					result.add(temp);
+					temp.clear();
+					temp.add(i);
+				}
+			} else {
+				ArrayList<Integer> temp = new ArrayList<>();
+				temp.add(i);
+				map.put(size, temp);
+			}
+		}
+		for (Map.Entry e : map.entrySet()) {
+			result.add((List<Integer>) e.getValue());
+		}
+		return result;
+
+	}
+	//767. Reorganize String
+	
+	public String reorganizeString(String s) {
+        HashMap<Character, Integer> freqMap = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
         }
-        for(Map.Entry e : map.entrySet()) {
-        	result.add((List<Integer>) e.getValue());
+        
+        PriorityQueue<Character> pq = new PriorityQueue<>((a, b) -> freqMap.get(b) - freqMap.get(a));
+        pq.addAll(freqMap.keySet());
+        
+        StringBuilder sb = new StringBuilder();
+        while(pq.size()>1) {
+        	char ch1 = pq.poll();
+        	char ch2 = pq.poll();
+        	sb.append(ch1);
+        	sb.append(ch2);
+        	freqMap.put(ch1 , freqMap.get(ch1)-1);
+        	freqMap.put(ch2 , freqMap.get(ch2)-1);
+        	if(freqMap.get(ch1)>0)	pq.add(ch1);
+        	if(freqMap.get(ch2)>0)	pq.add(ch2);
+
         }
-        return result;
+        if (pq.size()>0) {
+            char ch = pq.poll();
+            if (freqMap.get(ch) > 1) return "";
+            sb.append(ch);
+        }
+
+        return sb.toString();
+        
         
     }
 
+	class Pair{ 
+		char key; 
+		int freq;
+		public Object val; 
+		public Pair(char key, int freq){ 
+			this.key = key; 
+			this.freq = freq; 
+		} 
+	}
+	
+	 //1405. Longest Happy String 
+	public String longestDiverseString(int a, int b, int c) {
+		StringBuilder sb = new StringBuilder();
+
+		PriorityQueue<Pair> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o2.freq, o1.freq));
+		
+		if (a > 0)	pq.add(new Pair('a', a));
+		if (b > 0)	pq.add(new Pair('b', b));
+		if (c > 0)	pq.add(new Pair('c', c));
+		
+		while (pq.size() > 1) {
+		
+			Pair pair1 = pq.poll();
+			
+			if (pair1.freq > 1) {
+			
+				sb.append(pair1.key);
+				sb.append(pair1.key);
+				pair1.freq -= 2;
+				
+			} else {
+				
+				sb.append(pair1.key);
+				pair1.freq -= 1;
+			}
+		
+			Pair pair2 = pq.poll();
+			
+			if (pair2.freq >= 2 && pair1.freq < pair2.freq) {
+				
+				sb.append(pair2.key);
+				sb.append(pair2.key);
+				pair2.freq -= 2;
+			} else {
+				
+				sb.append(pair2.key);
+				pair2.freq -= 1;
+			}
+		
+			if (pair1.freq > 0)	pq.add(pair1);
+			if (pair2.freq > 0)	pq.add(pair2);
+		}
+		
+		if (pq.size()>0) {
+			if(sb.length() == 0){
+				Pair p1 = pq.poll();
+				
+				if(p1.freq > 0) sb.append(p1.key);
+				p1.freq -= 1;
+				if(p1.freq > 0) sb.append(p1.key);
+				p1.freq -= 1;
+			}
+			else if (sb.charAt(sb.length() - 1) != pq.peek().key) {
+				if (pq.peek().freq >= 2) {
+					sb.append(pq.peek().key);
+					sb.append(pq.peek().key);
+				} else {
+					sb.append(pq.peek().key);
+				}
+			}
+		}
+		return sb.toString();
+		
+
+	}
+	class Pair1{
+		String key;
+		int val;
+		public Pair1(String key, int val) {
+			this.key = key;
+			this.val = val;
+		}
+	}
+	
+    public List<List<String>> mostPopularCreator(String[] creators, String[] ids, int[] views) {
+    	HashMap<String, PriorityQueue<Pair1>> map = new HashMap<>();
+    	HashMap<String, Integer > totalViewMap = new HashMap<>();
+    
+    	for (int i = 0; i < views.length; i++) {
+
+//			map.putIfAbsent(creators[i], new PriorityQueue<>(
+//					(o1,o2) -> o1.val != o2.val ? o2.val - o1.val : o1.key.compareTo(o1.key)
+//					));
+			map.putIfAbsent(creators[i], new PriorityQueue<>(
+					(o1,o2) -> {
+						if(o1.val != o2.val) {
+							return o2.val - o1.val;
+						}
+						else {
+							String a = o1.key;
+							String b = o2.key;		
+							if(a.compareTo(b) == 0) {
+								return a.length() - b.length();
+							}
+							else {
+				    		      return a.length() - b.length();
+				    		  }
+						}
+					}
+					
+					
+					));
+			map.get(creators[i]).add(new Pair1(ids[i], views[i]));
+			totalViewMap.put(creators[i], totalViewMap.getOrDefault(creators[i],0)+views[i]);
+		}
+    	PriorityQueue<String> highPopularity = new PriorityQueue<>((o1,o2)-> totalViewMap.get(o2) - totalViewMap.get(o1));
+    	highPopularity.addAll(map.keySet());
+    	
+    	
+    	List<List<String>>	res = new ArrayList<>();
+    	// first creator
+    	String creator = highPopularity.poll();
+    	String id = map.get(creator).poll().key;
+    	int totalMaxView = totalViewMap.get(creator);
+    	
+    	List<String> temp = new ArrayList<>();
+    	temp.add(creator);
+    	temp.add(id);
+    	res.add(new ArrayList<>(temp));
+    	
+    	while(highPopularity.size()>0) {
+    		String newCreator = highPopularity.poll();
+    		String newCreatorId = map.get(newCreator).poll().key;
+	    	int newCreatorTotalView = totalViewMap.get(newCreator);
+	    	
+    		if(totalMaxView == newCreatorTotalView) {
+    			
+    			temp = new ArrayList<>();
+    	    	temp.add(newCreator);
+    	    	temp.add(newCreatorId);
+    	    	res.add(new ArrayList<>(temp));
+    		}
+    		else {
+    			break;
+    		}   		
+    	}
+		return res;
+    
+        
+    }
 
 }

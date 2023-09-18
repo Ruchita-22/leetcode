@@ -6,12 +6,126 @@ import java.util.stream.Collectors;
 public class Solution {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//print(twoSum(new int[] {3,2,4},6));
-		//System.out.println(solve(new int[] {1,1,2,2,3},5));
-		
 
 	}
+	
+	
+	
+	
+	//16. 3Sum Closest
+	public int threeSumClosest(int[] arr, int target) {
+        Arrays.sort(arr);
+        return solve1(arr, target);
+    }
+    private static int solve1(int arr[], int target){
+        int n = arr.length;
+        int ans = 0;
+        int diff = Integer.MAX_VALUE;
+        for(int k=0;k<n;k++){
+            int i=k+1;
+            int j = n-1;
+            while(i<j){
+                int sum = arr[i]+arr[j]+arr[k];
+                int a = Math.abs(target - sum);
+                if(a<diff ){
+                    diff = a;
+                    ans = sum;
+                }  
+                if(sum < target)   i++;
+                else if(sum > target)  j--;
+                else return target;
+            }
+        } 
+        return ans; 
+    }
+    //15. 3Sum
+    public List<List<Integer>> threeSum(int[] arr) {
+        helper(arr,0);
+        return ans;
+    }
+    static List<List<Integer>> ans;
+    static HashSet<List<Integer>> set;
+    public static List<List<Integer>> helper(int[] arr, int target) {
+        Arrays.sort(arr);
+
+        ans = new ArrayList<>();
+        set = new HashSet<>();
+
+        int n = arr.length;
+        
+        for(int i=0;i<n;i++){
+            ArrayList<Integer> temp = new ArrayList<>();
+            temp.add(0,arr[i]);
+            solve(arr, target, i+1, temp);
+            
+        }
+        return ans;
+    }
+    
+    private static void solve(int arr[], int target, int s,ArrayList<Integer> temp ){
+        int n = arr.length;
+        int i=s;
+        int j = n-1;
+        while(i<j){
+            long sum = temp.get(0)*1L+arr[i]+arr[j];
+            if(sum < target)   i++;
+            else if(sum > target)  j--;
+            else {
+                temp.add(1,arr[i]);
+                temp.add(2,arr[j]);
+                ArrayList<Integer> t = new ArrayList<>(temp);
+                if(!set.contains(t)){
+                    ans.add(t);
+                    set.add(t);
+                }
+                temp.remove(temp.size()-1);
+                temp.remove(temp.size()-1);
+                i++;
+            }
+        } 
+    }
+    //18. 4Sum
+    public List<List<Integer>> fourSum(int[] arr, int target) {
+        Arrays.sort(arr);
+
+        ans = new ArrayList<>();
+        set = new HashSet<>();
+
+        int n = arr.length;
+        
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(0,arr[i]);
+                temp.add(1,arr[j]);
+                solve1(arr, target, j+1, temp);
+            }
+        }
+        return ans;
+    }
+    
+    private static void solve1(int arr[], int target, int s,ArrayList<Integer> temp ){
+        int n = arr.length;
+        int i=s;
+        int j = n-1;
+        while(i<j){
+            long sum = temp.get(0)*1L+temp.get(1)+arr[i]+arr[j];
+            if(sum < target)   i++;
+            else if(sum > target)  j--;
+            else {
+                temp.add(2,arr[i]);
+                temp.add(3,arr[j]);
+                ArrayList<Integer> t = new ArrayList<>(temp);
+                if(!set.contains(t)){
+                    ans.add(t);
+                    set.add(t);
+                }
+                temp.remove(temp.size()-1);
+                temp.remove(temp.size()-1);
+                i++;
+            }
+        } 
+    }
 	
 	public static int countPairWithSumK(int[] arr, int sum) {
 		int n=arr.length;
@@ -232,30 +346,7 @@ public class Solution {
 		return res;
         
     }
-	private static List<List<Integer>> threeSum(int[] arr) {
-	        //not completed
-	        Arrays.sort(arr);
-	        int n=arr.length;
-	         List<List<Integer>> r = new ArrayList<>();
-	        
-	        for(int i=0;i<n-2;i++){
-	            int j=i+1,k=arr.length-1;
-	            if(arr[i]+arr[j]+arr[k]==0){
-	                List<Integer> l = new ArrayList<Integer>();
-	                l.add(arr[i]);
-	                l.add(arr[j]);
-	                l.add(arr[k]);
-	                r.add(l);
-	                j++;  k--;
-	            }
-	            else if(arr[i]+arr[j]+arr[k]<0)
-	                j++;
-	            else if(arr[i]+arr[j]+arr[k]>0)
-	                k--;
-	        }
-	        return r;
-	        
-	    }
+
 	private static int maxArea(int[] arr) {
 		//11. Container With Most Water
 		//https://leetcode.com/problems/container-with-most-water/
@@ -353,84 +444,6 @@ public class Solution {
 		}
 		System.out.println();
 	}
-	///////////////////////////////////////////////////////////////////////////
-	// Slow and fast pointer 
-	// slow s
-	//fast f
-	private static ListNode middleNode(ListNode head) {
-	        
-	        if(head==null||head.next==null)
-	            return head;
-	        ListNode s=head,f=head;
-	        while(f!=null && f.next!=null && f.next.next!=null){
-	            s=s.next;
-	            f=f.next.next;
-	        }
-	        if(f.next==null)
-	            return s;
-	        else 
-	            return s.next;
-	        
-	}
-	private static ListNode deleteMiddle(ListNode head) {
-        if(head==null||head.next==null)
-            return null;
-        ListNode s=head,f=head,p=head;
-        while(f!=null && f.next!=null && f.next.next!=null){
-            p=s;
-            s=s.next;
-            f=f.next.next; 
-        }
-        if(f.next==null){
-        }
-        else {
-            p=s;
-            s=s.next;
-        }
-        p.next=s.next;
-        s.next=null;
-        return head;
-        
-        
-    }
-	private static boolean hasCycle(ListNode head) {
 
-        if(head==null||head.next!=null)
-            return false;
-        
-        ListNode s=head,f=head;
-        while(f!=null && f.next!=null){
-            s = s.next;
-            f = f.next.next;
-            if(s==f)
-                return true;
-        }
-        
-       return false;
-    }
-	
-	private static ListNode detectCycleStart(ListNode head) {
-        /*
-         142. Linked List Cycle II
-         https://leetcode.com/problems/linked-list-cycle-ii/
-         * */
-		if(head==null||head.next==null)
-            return null;
-		
-        ListNode s=head, f=head;
-        while(f!=null && f.next!=null && f.next.next!=null) {
-            s=s.next;
-            f=f.next.next;
-            if(s==f){
-                s=head;
-                while(s!=f){
-                    s=s.next;
-                    f=f.next;
-                }
-            return s;    
-            }
-        }
-        
-        return null;
-    }
+
 }

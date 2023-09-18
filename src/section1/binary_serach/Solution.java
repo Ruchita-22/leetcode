@@ -58,19 +58,20 @@ public class Solution {
 	}
 	private static int firstOccuranceOfKeyInSortedArray(int arr[], int x) {
 		// first occurance of key in increasing sorted array
-		int res = -1;
+		int res = -1;		//index
 		int start = 0;
 		int end = arr.length -1; 
 		while(start <=end ) {
 			int mid =  start + (end - start )/2;
-			if(x<arr[mid])
-				end=mid-1;
-			else if(x>arr[mid])
-				start = mid+1;
-			else {
+			if(x==arr[mid]) {
 				res=mid;
 				end = mid-1;
 			}
+			else if(x<arr[mid])
+				end=mid-1;
+			else if(x>arr[mid])
+				start = mid+1;
+		
 					
 		}
 		return res;			
@@ -82,15 +83,16 @@ public class Solution {
 		int end = arr.length -1; 
 		while(start <=end ) {
 			int mid =  start + (end - start )/2;
-			if(x<arr[mid])
-				end=mid-1;
-			else if(x>arr[mid])
-				start = mid+1;
-			else {
+			
+			if(x==arr[mid]) {
 				res=mid;
 				start = mid+1;
 			}
-					
+			else if(x<arr[mid])
+				end=mid-1;
+			else if(x>arr[mid])
+				start = mid+1;
+				
 		}
 		return res;			
 	}
