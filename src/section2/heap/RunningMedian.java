@@ -11,21 +11,21 @@ public class RunningMedian {
 	//Q1. Running Median
 	
 	public int[] runningMedian(int[] arr) {
-        PriorityQueue<Integer> max = new PriorityQueue<>((o1,o2)-> o2-o1);
-        PriorityQueue<Integer> min = new PriorityQueue<>();
+        PriorityQueue<Integer> left = new PriorityQueue<>((o1,o2)-> o2-o1);
+        PriorityQueue<Integer> right = new PriorityQueue<>();
         
         int res[] = new int[arr.length];
         int i=0;
         
         for(int e : arr){
-            if(max.size()>0 && max.peek()>e)   max.add(e);
-            else min.add(e);
+			if (left.size() > 0 && left.peek() > e)   left.add(e);
+            else right.add(e);
 
-            if(min.size()-max.size()>1) max.add(min.poll());
-            else if(max.size()-min.size()>1) min.add(max.poll());
+			if (right.size() - left.size() > 1) left.add(right.poll());
+			else if (left.size() - right.size() > 1) right.add(left.poll());
             else {};
 
-            res[i] = min.size()>max.size() ?  min.peek(): max.peek();
+			res[i] = right.size() > left.size() ?  right.peek(): left.peek();
             i++;
         }
         return res;  

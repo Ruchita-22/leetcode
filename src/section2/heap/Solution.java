@@ -81,17 +81,17 @@ public class Solution {
 	private static int[] heapSort(int arr[], int k) {
 		// TODO Auto-generated method stub
 		//// input= 6,5,3,2,8,10,9
-		PriorityQueue<Integer> min = new PriorityQueue<>();
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
 		int j = 0;
 		for (int i = 0; i < arr.length; i++) {
-			min.add(arr[i]);
-			if (min.size() > k) {
-				arr[j] = min.poll();
+			pq.add(arr[i]);
+			if (pq.size() > k) {
+				arr[j] = pq.poll();
 				j++;
 			}
 		}
-		while (!min.isEmpty()) {
-			arr[j] = min.poll();
+		while (pq.size()>0) {
+			arr[j] = pq.poll();
 			j++;
 		}
 		return arr;
@@ -99,8 +99,8 @@ public class Solution {
 	}
 	// k closed number to x
 	static class Pair{
-	    int x;
-	    int y;
+	    int x;		// diff
+	    int y;		// element
 	    public Pair(int x, int y){
 	        this.x = x;
 	        this.y = y;
@@ -123,7 +123,7 @@ public class Solution {
         Collections.sort(res);
         return res;
     }
-
+	//////////////////////////////////////////////////////////////////
 	private static void kFrequentElement(int arr[], int k) {
 		// TODO Auto-generated method stub
 		// input = 1,1,1,3,2,2,4 n=2
@@ -134,7 +134,7 @@ public class Solution {
         }
 		
 		// sort on value/ frequency
-		Queue<Integer> pq = new PriorityQueue<>((n1, n2) -> map.get(n1) - map.get(n2));
+		PriorityQueue<Integer> pq = new PriorityQueue<>((n1, n2) -> map.get(n1) - map.get(n2));
 		for (int n1 : map.keySet()) {
 			pq.add(n1);
 			if (pq.size() > k)
@@ -144,29 +144,29 @@ public class Solution {
 			System.out.println(pq.poll());
 		}
 	}
-
+	//1636. Sort Array by Increasing Frequency
     public int[] frequencySort(int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for(int e : arr){
             map.put(e,map.getOrDefault(e,0)+1);
             
         }
-        List<Map.Entry<Integer, Integer>> l =new ArrayList<>(map.entrySet());
-        Collections.sort(l, (o1,o2)->
-        		o1.getValue()!=o2.getValue() ? 
-        		o1.getValue()-o2.getValue() : 
-        		o2.getKey()-o1.getKey()
-        );
-        System.out.println(l);
-        int i=0;
-        for(Map.Entry<Integer, Integer> e : l){
-            int f=e.getValue();
-            while(f>0){
-                arr[i]=e.getKey();
+        PriorityQueue<Integer> pq = new PriorityQueue<>((n1, n2) ->  map.get(n1) != map.get(n2) ?                                            
+                map.get(n1) - map.get(n2) : n2-n1);
+		for (int n1 : map.keySet()) pq.add(n1);
+		
+		int i=0;
+		while (pq.size() > 0) {
+			int n = pq.poll();
+			int f = map.get(n);
+			while(f>0){
+                arr[i] = n;
                 i++;
                 f--;
             }
-        }
+			
+		}
+
         return arr;
         
     }
@@ -180,6 +180,7 @@ public class Solution {
         for(char c : s.toCharArray()){
             map.put(c,map.getOrDefault(c,0)+1);
         }
+        
         for(char c : map.keySet()){
             pq.add(c);
         }
@@ -218,6 +219,7 @@ public class Solution {
 		return res;
 
 	}
+	
 	static class Pair1 {
 		int key,x,y;
 

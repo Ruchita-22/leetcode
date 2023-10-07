@@ -34,6 +34,9 @@ Heap
 	7. K Closeest To Origin
 	8. Connect Rope With Min Cost
 	9. Max Triplet Sum
+	Running Median
+	No. of ways to form max teap
+	
 	
 2 Pointer
 
@@ -66,9 +69,10 @@ Fixed
 
 	1. largestSubarrayOfSumOfK
 	2. countOccuranceOfAnagram
-	3. Max of all sub array
+	3. Max of all sub array of size k
 	567. Permutation in String
 	438. Find All Anagrams in a String
+	First -ve integer of every subarray of size k
 	
 
 Variabe Window Size
@@ -135,6 +139,43 @@ Matrix
 	2. transpose of matrix
 	3. rotate 90 by left
 	4. sprint in sprial
+	
+	
+HashMap
+	
+	1512. Number of Good Pairs
+	2006. Count Number of Pairs With Absolute Difference K
+	1748. Sum of Unique Elements
+	1207. Unique Number of Occurrences
+	1394. Find Lucky Integer in an Array
+	1941. Check if All Characters Have Equal Number of Occurrences
+	409. Longest Palindrome
+	771. Jewels and Stones
+	2103. Rings and Rods
+	1832. Check if the Sentence Is Pangram
+	383. Ransom Note
+	1002. Find Common Characters
+	2068. Check Whether Two Strings are Almost Equivalent
+	1935. Maximum Number of Words You Can Type
+	2325. Decode the Message
+	436. Destination City
+	217. Contains Duplicate
+	1160. Find Words That Can Be Formed by Characters
+	953. Verifying an Alien Dictionary
+	387. First Unique Character in a String
+	1496. Path Crossing
+	36. Valid Sudoku
+	2085. Count Common Words With One Occurrence
+	1248. Count Number of Nice Subarrays
+	930. Binary Subarrays With Sum
+	560. Subarray Sum Equals K
+	1. Two Sum
+	1282. Group the People Given the Group Size They Belong To
+	767. Reorganize String
+	1405. Longest Happy String 
+	
+		
+	
 
 
 	

@@ -2,6 +2,8 @@ package section2.heap;
 
 import java.util.Comparator;
 
+import section5.two_pointer.Pair;
+
 public class MyComparator implements Comparator<Pair>
 {
 //    public int compare( Integer x, Integer y ) {
