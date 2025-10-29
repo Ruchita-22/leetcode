@@ -60,7 +60,14 @@ Stack
 	2. NextLargestElement to right 
 	3. NextSmallestElement to left
 	4. NextSmallestElement to right
-	5. Stock Span Problem
+	5. Min & Max
+	6. Max Area of Histogram
+	7. Max Area of Binary matrix 
+	8. Stock Span Problem
+	Balanced Paranthesis
+	ConvertInfixToPostfix
+	Evaluate postfix expression
+	
 
 
 Sliding Window 
@@ -99,24 +106,41 @@ Recursion
 
 
 LinkedList (16)
-
+	
+	 Impl_LL.java
+	 Insert in sorted LL - Advance.java
      237. Delete Node in a Linked List
      19. Remove Nth Node From End of List
+     
      2. Add Two Numbers
      445. Add Two Numbers II
-     206. Reverse Linked List
-     92. Reverse Linked List II
-     25. Reverse Nodes in k-Group
-     141. Linked List Cycle
-     21. Merge Two Sorted Lists
+     
+     Reverse - reverse.java
+	     206. Reverse Linked List
+	     92. Reverse Linked List II - in range
+	     25. Reverse Nodes in k-Group
+     Slow and fast - SlowAndFastPointer.java
+	     876. Middle of the Linked List
+	     2095. Delete the Middle Node of a Linked List
+	     Detect cycle in LL - 141. Linked List Cycle
+	     Beginning of the cycle
+	     Remove Loop from LL
+	     141. Linked List Cycle
+	 MergeSortInLL
+	 	Merge Sort - 148. Sort List         
+     	21. Merge Two Sorted Lists
+     	mergeZigZag
+     	reorder
+     	partition
+     	
      160. Intersection of Two Linked Lists
-     876. Middle of the Linked List
+    
      83. Remove Duplicates from Sorted List
      82. Remove Duplicates from Sorted List II
-     148. Sort List
      1019. Next Greater Node In Linked List
      328. Odd Even Linked List
-     
+     Deep clone of DLL - 138. Copy List with Random Pointer
+     LRU
 
 	 
 	 

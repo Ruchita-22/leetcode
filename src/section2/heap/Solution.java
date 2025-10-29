@@ -1,6 +1,8 @@
 package section2.heap;
 
+import java.nio.charset.IllegalCharsetNameException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +16,9 @@ public class Solution {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// solve();
-//		int arr[] = new int[] {1,2,3,4,5};
+		int arr[] = new int[] {1,2,3,4,5};
+		System.out.println(KthLargestElemet(arr, 3));
+		
 //		int arr1[][]= {{1,2},{-2,-2},{5,8},{0,1}};
 //		int workers[][] = new int[][] {{0,0},{2,1}}; 
 //		int bikes[][] = new int[][] {{1,2},{3,3}};
@@ -106,22 +110,39 @@ public class Solution {
 	        this.y = y;
 	    }
 	}
+	
 	public List<Integer> findClosestElements(int[] arr, int k, int x) {
+		
+		PriorityQueue<Pair> q = new PriorityQueue<>((o1, o2) -> o1.x != o2.x ? o2.x - o1.x : o2.y - o1.y);
+		for (int i = 0; i < arr.length; i++) {
+			q.add(new Pair(Math.abs(arr[i] - x), arr[i]));
+			while (q.size() > k)
+				q.poll();
+		}
+		List<Integer> res = new ArrayList<Integer>();
+		while (q.size() > 0) {
+			res.add(q.poll().y);
+		}
+		Collections.sort(res);
+		return res;
+    }
+	public List<Integer> findClosestElements1(int[] arr, int k, int x) {
+		Map<Integer, Integer> map = new HashMap<>();
+		// e , diff
 
-        PriorityQueue<Pair> q = new PriorityQueue<>((o1,o2)->
-            o1.x != o2.x ? 
-            o2.x - o1.x : 
-            o2.y - o1.y);
-        for(int i=0;i<arr.length;i++){
-            q.add(new Pair(Math.abs(arr[i]-x),arr[i]));
-            while(q.size()>k)   q.poll();
-        }
-        List<Integer> res = new ArrayList<Integer>();
-        while(q.size()>0){
-            res.add(q.poll().y);
-        }
-        Collections.sort(res);
-        return res;
+		PriorityQueue<Integer> q = new PriorityQueue<>((o1, o2) -> map.get(o1) != map.get(o1) ? map.get(o2) - map.get(o1) : o2 - o1);
+		for (int i = 0; i < arr.length; i++) {
+			map.put(arr[i], Math.abs(arr[i] - x));
+			q.add(arr[i]);
+			while (q.size() > k)
+				q.poll();
+		}
+		List<Integer> res = new ArrayList<Integer>();
+		while (q.size() > 0) {
+			res.add(q.poll());
+		}
+		Collections.sort(res);
+		return res;
     }
 	//////////////////////////////////////////////////////////////////
 	private static void kFrequentElement(int arr[], int k) {
@@ -184,14 +205,14 @@ public class Solution {
         for(char c : map.keySet()){
             pq.add(c);
         }
-        String res = "";
+        StringBuilder res = new StringBuilder();
         while(pq.size()>0){
             char c = pq.poll();
             int f = map.get(c);
             for(int i = 0;i<f;i++)
-                res += c;
+                res.append(c);
         }
-        return res;
+        return new String(res);
         
         
     }    
@@ -416,7 +437,8 @@ public class Solution {
 			i++;
 			int r = e.row;
 			int c = e.row;
-			pq.add(new Element(arr[r][c + 1], r, c + 1));
+			if(c+1 < arr[0].length)
+				pq.add(new Element(arr[r][c + 1], r, c + 1));
 		}
 		return res;
 
@@ -441,7 +463,7 @@ public class Solution {
 		return ans;
 
 	}
-
+	
 	public static int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
 		int ans = 0;
 		int d = Integer.MAX_VALUE, dmin = Integer.MAX_VALUE;

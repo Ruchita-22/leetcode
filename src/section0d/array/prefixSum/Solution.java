@@ -128,8 +128,6 @@ public class Solution {
             ans[i] = pf[n-1-i]^k;
         }
         return ans;
-            
-        
     }
 	//1310. XOR Queries of a Subarray
     public int[] xorQueries(int[] arr, int[][] queries) {
